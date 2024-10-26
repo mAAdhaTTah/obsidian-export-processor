@@ -1,11 +1,10 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
-	"version": "1.0.0",
-	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
-	"isDesktopOnly": false
+  "id": "export-processor",
+  "name": "Export Processor",
+  "version": "1.0.0",
+  "minAppVersion": "0.15.0",
+  "description": "Export your vault files, with hooks to process them on the way out.",
+  "author": "James DiGioia",
+  "authorUrl": "https://jamesdigioia.com",
+  "isDesktopOnly": true
 }
