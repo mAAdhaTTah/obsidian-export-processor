@@ -7,7 +7,6 @@ import remarkParse from "remark-parse";
 import remarkStringify from "remark-stringify";
 import { SKIP, visit } from "unist-util-visit";
 import * as m from "mdast-builder";
-import { isPromise } from "util/types";
 import remarkWikiLink from "remark-wiki-link";
 import { DataviewApi } from "obsidian-dataview";
 import { HooksFile } from "./hooks";
@@ -32,16 +31,16 @@ function remarkObsidianCodeblocks({
   return async function (tree: UnistNode) {
     const promises: Promise<any>[] = [];
     visit(tree, "code", (node: CodeNode, index, parent: any) => {
-      let result = processCodeblock(node);
-      if (result === node) return;
-      if (!isPromise(result)) result = Promise.resolve(result);
-      promises.push(
-        result.then((result) => {
-          const newNode = typeof result === "string" ? m.text(result) : result;
-          parent.children.splice(index, 1, newNode);
-        }),
-      );
-      return [SKIP, index];
+      const result = processCodeblock(node);
+      if (result !== node) {
+        promises.push(
+          Promise.resolve(result).then((result) => {
+            const newNode =
+              typeof result === "string" ? m.text(result) : result;
+            parent.children.splice(index, 1, newNode);
+          }),
+        );
+      }
     });
     await Promise.all(promises);
   };
