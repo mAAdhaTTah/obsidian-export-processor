@@ -1,6 +1,6 @@
 {
   "name": "obsidian-export-processor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Export your vault files, with hooks to process them on the way out.",
   "main": "main.js",
   "scripts": {
