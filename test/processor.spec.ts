@@ -2,7 +2,7 @@ import { expect, test } from "vitest";
 import { ContentProcessor } from "../src/processor";
 
 test("wikilinks parsing", async () => {
-  const processor = new ContentProcessor();
+  const processor = new ContentProcessor({}, {});
 
   expect(
     await processor.processContent("[[Test Link]]", {
@@ -14,7 +14,7 @@ test("wikilinks parsing", async () => {
 });
 
 test("wikilinks parsing with alias", async () => {
-  const processor = new ContentProcessor();
+  const processor = new ContentProcessor({}, {});
 
   expect(
     await processor.processContent("[[Test Link|This is a test]]", {
@@ -26,7 +26,7 @@ test("wikilinks parsing with alias", async () => {
 });
 
 test("remove wikilink when target is missing", async () => {
-  const processor = new ContentProcessor();
+  const processor = new ContentProcessor({}, {});
 
   expect(
     await processor.processContent("[[Test Link]]", {
