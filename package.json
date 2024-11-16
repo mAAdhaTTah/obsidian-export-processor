@@ -27,7 +27,6 @@
   "dependencies": {
     "mdast-builder": "^1.1.1",
     "obsidian-dataview": "^0.5.67",
-    "remark-callouts": "^2.0.0",
     "remark-gfm": "^4.0.0",
     "remark-math": "^6.0.0",
     "remark-mdx": "^3.1.0",

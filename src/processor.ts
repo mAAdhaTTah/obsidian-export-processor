@@ -1,6 +1,5 @@
 import { unified } from "unified";
 import remarkMdx from "remark-mdx";
-import remarkCallouts from "remark-callouts";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
@@ -105,7 +104,6 @@ export class ContentProcessor {
           );
         },
       })
-      .use(remarkCallouts)
       .use(remarkMath)
       .use(remarkObsidianCodeblocks, {
         processCodeblock: (node) => {
