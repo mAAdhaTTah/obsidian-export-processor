@@ -1,7 +1,7 @@
 {
 	"id": "export-processor",
 	"name": "Export Processor",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"minAppVersion": "1.7.0",
 	"description": "Export your vault files, with hooks to process them on the way out.",
 	"author": "James DiGioia",
