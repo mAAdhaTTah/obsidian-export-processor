@@ -90,3 +90,22 @@ FROM #web
     ),
   ).toEqual("* [Test Link](/test-link)\n");
 });
+
+test("blockquote parsing", async () => {
+  const processor = new ContentProcessor(
+    {
+      tryQueryMarkdown: vi
+        .fn()
+        .mockImplementation(() => Promise.resolve(`- [[Test Link]]`)),
+    },
+    {},
+  );
+
+  expect(
+    await processor.processContent(`> This is a quote.\n`, {
+      page: {},
+      frontmatter: {},
+      pages: [],
+    }),
+  ).toEqual("> This is a quote.\n");
+});
