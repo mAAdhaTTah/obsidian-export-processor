@@ -1,4 +1,4 @@
-import { writeFile } from "fs/promises";
+import { mkdir, writeFile } from "fs/promises";
 import { getFrontMatterInfo, Notice, Plugin, stringifyYaml } from "obsidian";
 import { getAPI } from "obsidian-dataview";
 import * as path from "path";
@@ -55,9 +55,9 @@ export default class ExportProcessorPlugin extends Plugin {
         const pages = dv.pages(this.settings.query);
         const contentProcessor = new ContentProcessor(dv, hooks);
 
-        try {
-          // Process files
-          for (const page of pages) {
+        // Process files
+        for (const page of pages) {
+          try {
             // Construct the MD file:
             let markdown = "";
 
@@ -87,21 +87,21 @@ export default class ExportProcessorPlugin extends Plugin {
             markdown += hooks.footerContent?.(frontmatter, page) ?? "";
 
             // - Get path from userland
-            const outputPath =
-              hooks.outputPath?.(page, frontmatter, markdown) ?? page.file.path;
+            const outputPath = path.join(
+              this.settings.output,
+              hooks.outputPath?.(page, frontmatter, markdown) ?? page.file.path,
+            );
 
             // - Write file
-            await writeFile(
-              path.join(this.settings.output, outputPath),
-              markdown,
-            );
+            await mkdir(path.dirname(outputPath), { recursive: true });
+            await writeFile(outputPath, markdown);
+          } catch (err) {
+            new Notice(`Error exporting page. Check console for details`);
+            console.error("Page failed:", page);
+            console.error(err);
           }
-
-          new Notice("Export complete!");
-        } catch (err) {
-          new Notice(`Error exporting vault. Check console for details`);
-          console.error(err);
         }
+        new Notice("Export complete!");
       },
     });
 
